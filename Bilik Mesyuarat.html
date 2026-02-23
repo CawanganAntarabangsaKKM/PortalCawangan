@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cawangan Antarabangsa KKM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* CSS KESELURUHAN & HEADER/FOOTER (Diperlukan di sini supaya yang di-fetch ada gaya) */
+        :root {
+            --primary-blue: #0E1950;
+            --secondary-blue: #4865a4;
+            --light-blue: #bed7f1;
+        }
+
+        body { font-family: 'Noto Sans', sans-serif; background-color: #f8f9fa;}
+
+        /* --- CSS HEADER & NAVIGASI --- */
+        .top-bar { background-color: var(--primary-blue); color: white; font-size: 13px; }
+        .top-bar a { color: white; text-decoration: none; }
+        .main-nav { background: linear-gradient(180deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); padding: 0; }
+        .main-nav .nav-link { color: white !important; font-weight: 600; padding: 15px 20px !important; transition: background 0.3s; }
+        .main-nav .nav-link:hover, .main-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); border-top: 3px solid var(--light-blue); }
+        .has-megamenu { position: static !important; }
+        .megamenu { position: absolute; left: 0; right: 0; width: 100%; border: none; border-radius: 0; margin-top: 0; border-top: 3px solid var(--secondary-blue); padding: 15px 0; }
+        .megamenu h6 { color: var(--primary-blue); font-weight: bold; border-bottom: 2px solid var(--light-blue); padding-bottom: 10px; margin-bottom: 15px; }
+        .megamenu ul li a { text-decoration: none; color: #333; display: block; padding: 5px 0; font-size: 15px; }
+        .megamenu ul li a:hover { color: var(--secondary-blue); padding-left: 5px; transition: all 0.2s; }
+        @media (min-width: 992px) {
+            .main-nav .nav-item.dropdown .dropdown-menu { display: none !important; }
+            .main-nav .nav-item.dropdown:hover .dropdown-menu { display: block !important; visibility: visible; opacity: 1; margin-top: 0; animation: fadeDropdown 0.3s ease forwards; }
+        }
+        @keyframes fadeDropdown { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        
+        .portal-branding { padding: 10px 0; }
+        .logo-img img { max-height: 85px; width: auto; }
+        .vertical-divider { height: 60px; width: 1px; background-color: #dee2e6; }
+        .portal-title { display: flex; flex-direction: column; justify-content: center; }
+        .portal-title .top-text { font-size: 14px; font-weight: 500; color: #666; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+        .portal-title .main-title { font-size: 24px; font-weight: 800; color: var(--primary-blue); line-height: 1.1; margin: 0; text-transform: uppercase; }
+
+        /* --- CSS KANDUNGAN HALAMAN INI --- */
+        .section-title { position: relative; margin-bottom: 60px; }
+        .gradient-text { background: linear-gradient(180deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; z-index: 2; position: relative; }
+        .title-bg-text { position: absolute; top: -45px; left: 0; right: 0; font-size: 70px; font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(14, 25, 80, 0.05); letter-spacing: 5px; z-index: 0; text-transform: uppercase; }
+        
+        .bg-seksyen-kelabu { background-color: #dddfe2; }
+        .service-card { background: #fff; border-radius: 10px; position: relative; overflow: hidden; transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s; height: 100%; }
+        .service-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 10px 30px rgba(24, 0, 146, 0.15); }
+        .img-container { background-color: #f8f9fa; text-align: center; border-radius: 10px 10px 0 0; overflow: hidden; }
+        .img-container img { width: 100%; height: auto; max-height: 250px; object-fit: contain; border-radius: 10px 10px 0 0; }
+
+        /* Gaya Butang Hantar */
+        .btn-submit-custom { background-color: var(--primary-blue); color: white; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: none; }
+        .btn-submit-custom:hover { background-color: var(--secondary-blue); color: white; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(14, 25, 80, 0.2); }
+
+        /* --- CSS FOOTER --- */
+        .footer-section { background-color: var(--primary-blue); border-top: 4px solid var(--secondary-blue); }
+        .contact-info i { color: var(--light-blue); font-size: 1.2rem; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links li a { color: #d8d8d8; text-decoration: none; transition: color 0.3s; }
+        .footer-links li a:hover { color: var(--light-blue); padding-left: 5px; }
+        .visitor-stats { background-color: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; color: #d8d8d8; }
+
+        @media (max-width: 768px) {
+            .vertical-divider { height: 40px; }
+            .portal-title .main-title { font-size: 16px; }
+            .portal-title .top-text { font-size: 10px; }
+            .logo-img img { max-height: 50px; }
+            .title-bg-text { font-size: 35px; top: -20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+    
+    <section class="container py-5">
+        <div class="section-title text-center w-100" style="margin-bottom: 50px;">
+            <span class="title-bg-text">TEMPAHAN</span>
+            <h2 class="gradient-text display-6 fw-bold mb-0">TEMPAHAN BILIK MESYUARAT</h2>
+        </div>
+
+        <div class="row gx-5"> 
+            <div class="col-lg-7 mb-4 mb-lg-0"> 
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body p-0" style="min-height: 600px;">
+                        <iframe src="https://calendar.google.com/calendar/embed?src=c_7e2d9c081fb8a256f590d16886c558f5a472e0f61042b7f582f3a6e100202917%40group.calendar.google.com&ctz=Asia%2FSingapore&showPrint=0&showCalendars=0&showTz=0&showTitle=0&bgcolor=%23dddbd4" 
+                        style="border: 0; width: 100%; height: 100%; min-height: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);" frameborder="0" scrolling="no"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card shadow-sm border-0 h-100" style="background-color: #dddbd4;">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png" alt="Logo Jata Negara" style="width: 80px;" class="mb-2">
+                            <h5 class="fw-bold" style="color: var(--primary-blue); font-size: 16px;">CAWANGAN ANTARABANGSA</h5>
+                            <h6 class="text-secondary" style="font-size: 14px;">BORANG TEMPAHAN BILIK MESYUARAT</h6>
+                        </div>
+
+                        <form id="form" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="font-size: 14px;">NAMA PEGAWAI:<span class="text-danger">*</span></label>
+                                <input class="form-control form-control-sm" id="NAMA_PEGAWAI" onblur="mycapitalized('NAMA_PEGAWAI')" type="text" placeholder="Nama Penuh" name="NAMA PEGAWAI" required oninvalid="setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="font-size: 14px;">EMEL:<span class="text-danger">*</span></label>
+                                <input class="form-control form-control-sm" id="EMEL" onblur="mycapitalized('EMEL')" type="email" placeholder="@moh.gov.my" name="EMEL" required oninvalid="setCustomValidity('Sila semak emel anda')" oninput="setCustomValidity('')" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="font-size: 14px;">UNIT/ CAWANGAN:<span class="text-danger">*</span></label>
+                                <input class="form-control form-control-sm" id="UNIT_CAWANGAN" onblur="mycapitalized('UNIT_CAWANGAN')" type="text" placeholder="e.g Unit A" name="UNIT/ CAWANGAN" required oninvalid="setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="font-size: 14px;">TAJUK MESYUARAT:<span class="text-danger">*</span></label>
+                                <input class="form-control form-control-sm" id="TAJUK_MESYUARAT" onblur="mycapitalized('TAJUK_MESYUARAT')" type="text" placeholder="Tajuk Mesyuarat" name="TAJUK MESYUARAT" required oninvalid="setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="font-size: 14px;">TARIKH:<span class="text-danger">*</span></label>
+                                <input class="form-control form-control-sm" id="TARIKH" type="date" name="TARIKH" required oninvalid="setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="font-size: 14px;">WAKTU:<span class="text-danger">*</span></label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input class="form-control form-control-sm" type="time" name="WAKTU MULA" required oninvalid="setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')" />
+                                    <span class="fw-bold" style="font-size: 12px;">HINGGA</span>
+                                    <input class="form-control form-control-sm" type="time" name="WAKTU SELESAI" required oninvalid="setCustomValidity('Sila isi bahagian ini')" oninput="setCustomValidity('')" />
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold" style="font-size: 14px;">TUJUAN:<span class="text-danger">*</span></label>
+                                <select class="form-select form-select-sm" name="TUJUAN" required oninvalid="setCustomValidity('Sila pilih tujuan')" oninput="setCustomValidity('')">
+                                    <option value="" disabled selected>PILIH TUJUAN</option>
+                                    <option value="TEMPAHAN BILIK MESYUARAT">TEMPAHAN BILIK MESYUARAT</option>
+                                    <option value="BAWA KELUAR LAPTOP">BAWA KELUAR LAPTOP</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-submit-custom w-100 py-2 fw-bold mt-2" type="submit">HANTAR TEMPAHAN</button>
+                        </form>
+                        
+                        <div id="message" class="alert mt-3 text-center fw-bold" style="display: none; font-size: 14px;" role="alert"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-services py-5 bg-seksyen-kelabu">
+        <div class="container">
+            <div class="section-title text-center mb-5 position-relative">
+                <h2 class="fw-bold gradient-text">BILIK MESYUARAT ARAS 8, LOBI UTAMA</h2>
+                <div class="title-bg-text">MEDIA</div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="img-container">
+                            <img src="Pic Bilik Mesyuarat/1.jpg" alt="Info Kesihatan" class="img-fluid w-100">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="img-container">
+                            <img src="Pic Bilik Mesyuarat/2.jpg" alt="Kesihatan Mental" class="img-fluid w-100">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="img-container">
+                            <img src="Pic Bilik Mesyuarat/3.jpg" alt="Bantuan Kesihatan" class="img-fluid w-100">
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-card">
+                        <div class="img-container">
+                            <img src="Pic Bilik Mesyuarat/4.jpg" alt="Bantuan Kesihatan" class="img-fluid w-100">
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // A. Panggil Header & Footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                
+                // Set kelas "active" pada menu yang betul
+                let currentPage = window.location.pathname.split("/").pop();
+                if (currentPage === "") currentPage = "portal.html";
+                currentPage = decodeURIComponent(currentPage);
+
+                let navLinks = document.querySelectorAll('.main-nav a');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                        // Warnakan tajuk dropdown jika link dalam dropdown
+                        let parentDropdown = link.closest('.dropdown');
+                        if (parentDropdown) {
+                            let dropdownToggle = parentDropdown.querySelector('.dropdown-toggle');
+                            if (dropdownToggle) dropdownToggle.classList.add('active');
+                        }
+                    }
+                });
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+
+        // B. Fungsi Borang (Google Apps Script)
+        document.getElementById("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            var keyValuePairs = [];
+            for (var pair of formData.entries()) {
+                keyValuePairs.push(encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]));
+            }
+            var formDataString = keyValuePairs.join("&");
+
+            var formElements = this.elements; 
+            for (var i = 0; i < formElements.length; i++) {
+                formElements[i].disabled = true;
+                formElements[i].style.cursor = "not-allowed";
+            }
+
+            var messageBox = document.getElementById("message");
+            messageBox.textContent = "SEDANG DIHANTAR...";
+            messageBox.className = "alert alert-warning mt-4 text-center fw-bold";
+            messageBox.style.display = "block";
+
+            fetch("https://script.google.com/macros/s/AKfycbw5qTqySq4MGpcD78K2eH54q2YC9JXSR18ao6RI3nrbz7lf_UPnKM29teQqRztnASSg/exec", {
+                redirect: "follow",
+                method: "POST",
+                body: formDataString,
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+            })
+            .then(function (response) {
+                if (response) return response; 
+                else throw new Error("Gagal menghantar borang.");
+            })
+            .then(function (data) {
+                messageBox.textContent = "BORANG ANDA TELAH BERJAYA DIHANTAR!";
+                messageBox.className = "alert alert-success mt-4 text-center fw-bold";
+                setTimeout(function () {
+                    window.location.reload(); 
+                }, 3000);
+            })
+            .catch(function (error) {
+                console.error(error);
+                messageBox.textContent = "RALAT: SILA SEMAK SEMULA TEMPAHAN ANDA";
+                messageBox.className = "alert alert-danger mt-4 text-center fw-bold";
+                for (var i = 0; i < formElements.length; i++) {
+                    formElements[i].disabled = false;
+                    formElements[i].style.cursor = ""; 
+                }
+            });
+        });
+
+        // C. Tarikh Minimum (Hari Ini)
+        var date = new Date();
+        var tdate = date.getDate();
+        var month = date.getMonth() + 1; 
+        if(tdate < 10){ tdate = '0' + tdate; }
+        if(month < 10){ month = "0" + month; }
+        var year = date.getUTCFullYear();
+        var minDate = year + "-" + month + "-" + tdate;
+        document.getElementById("TARIKH").setAttribute('min', minDate);
+
+        // D. Fungsi Huruf Besar
+        function mycapitalized(elementId) {
+            var field = document.getElementById(elementId);
+            if(field && field.value) {
+                field.value = field.value.toUpperCase();
+            }
+        }
+    </script>
+</body>
+</html>
