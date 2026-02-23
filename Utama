@@ -206,7 +206,7 @@
 
                 <div class="carousel-item" data-bs-interval="4500">
                     <div class="overlay"></div>
-                    <img src="salam asean.JPG" class="d-block w-100 banner-media" alt="Banner 2">
+                    <img src="salamasean.JPG" class="d-block w-100 banner-media" alt="Banner 2">
                     <div class="carousel-caption d-none d-md-block">
                         <h2 class="animate-text">Kesejahteraan Rakyat Keutamaan Kami</h2>
                         <p class="animate-text-delay">Bersama menjaga hubungan antara Negara.</p>
@@ -681,4 +681,5 @@
         });
     </script>
 </body>
+
 </html>
