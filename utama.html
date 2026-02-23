@@ -180,48 +180,55 @@
 
     <div id="header-placeholder"></div> 
 
-    <section id="hero-banner">
-        <div id="portalCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#portalCarousel" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#portalCarousel" data-bs-slide-to="1"></button>
-            </div>
-
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="4500">
-                    <div class="overlay"></div>
-                    <video autoplay muted loop class="d-block w-100 banner-media">
-                        <source src="Video/ASEAN.mp4" type="video/mp4">
-                        Penyemak imbas anda tidak menyokong video tag.
-                    </video>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h2 class="animate-text">Selamat Datang ke Portal Rasmi</h2>
-                        <p class="animate-text-delay">CAWANGAN ANTARABANGSA <br>KEMENTERIAN KESIHATAN MALAYSIA</p>
-                        <div class="hero-btns mt-4 animate-text-delay">
-                            <a href="Bilik Mesyuarat.html" class="btn btn-outline-light btn-lg ms-2">Tempahan Bilik Mesyuarat</a>
-                            <a href="#" class="btn btn-outline-light btn-lg ms-2">Janji Temu</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item" data-bs-interval="4500">
-                    <div class="overlay"></div>
-                    <img src="salamasean.JPG" class="d-block w-100 banner-media" alt="Banner 2">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h2 class="animate-text">Kesejahteraan Rakyat Keutamaan Kami</h2>
-                        <p class="animate-text-delay">Bersama menjaga hubungan antara Negara.</p>
-                    </div>
-                </div>
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#portalCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#portalCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
+<section id="hero-banner">
+    <div id="portalCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#portalCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#portalCarousel" data-bs-slide-to="1"></button>
         </div>
-    </section>
+
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active" data-bs-interval="4500" style="height: 80vh; overflow: hidden; position: relative;">
+                
+                <iframe 
+                    src="https://www.youtube.com/embed/3R0iJiFcnqE?autoplay=1&mute=1&loop=1&playlist=3R0iJiFcnqE&controls=0&showinfo=0&rel=0&disablekb=1" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    style="position: absolute; top: 50%; left: 50%; width: 100vw; height: 100vh; transform: translate(-50%, -50%) scale(1.4); pointer-events: none; border: none; z-index: 0;">
+                </iframe>
+                
+                <div class="overlay" style="z-index: 1;"></div>
+                
+                <div class="carousel-caption d-none d-md-block" style="z-index: 2;">
+                    <h2 class="animate-text">Selamat Datang ke Portal Rasmi</h2>
+                    <p class="animate-text-delay">CAWANGAN ANTARABANGSA <br>KEMENTERIAN KESIHATAN MALAYSIA</p>
+                    <div class="hero-btns mt-4 animate-text-delay">
+                        <a href="Bilik Mesyuarat.html" class="btn btn-outline-light btn-lg ms-2">Tempahan Bilik Mesyuarat</a>
+                        <a href="#" class="btn btn-outline-light btn-lg ms-2">Janji Temu</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="4500">
+                <div class="overlay"></div>
+                <img src="salamasean.JPG" class="d-block w-100 banner-media" alt="Banner 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="animate-text">Kesejahteraan Rakyat Keutamaan Kami</h2>
+                    <p class="animate-text-delay">Bersama menjaga hubungan antara Negara.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#portalCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#portalCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</section>
 
     <section class="main-services py-5 bg-seksyen-kelabu">
         <div class="container">
@@ -683,3 +690,4 @@
 </body>
 
 </html>
+
