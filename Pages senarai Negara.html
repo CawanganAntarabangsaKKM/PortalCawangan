@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cawangan Antarabangsa KKM</title>
+    <title>Cawangan Antarabangsa KKM - Senarai Negara</title>
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Coat_of_arms_of_Malaysia.svg/128px-Coat_of_arms_of_Malaysia.svg.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,7 +19,7 @@
             --light-blue: #bed7f1;
         }
 
-        body { font-family: 'Noto Sans', sans-serif; background-color: #f8f9fa;}
+        body { font-family: 'Noto Sans', sans-serif; background-color: #f8f9fa; scroll-behavior: smooth;}
 
         /* Top Bar & Logo */
         .top-bar { background-color: var(--primary-blue); color: white; font-size: 13px; }
@@ -75,16 +75,19 @@
             justify-content: space-between;
             align-items: center;
             position: sticky;
-            top: 70px; /* Diubah sikit supaya tak lindung menu utama kalau menu utama sticky */
+            top: 70px; 
             z-index: 1000;
             padding: 15px 0;
             margin-bottom: 20px;
             border-radius: 10px;
+            flex-wrap: wrap; /* Pastikan ia boleh dibalut di skrin kecil */
+            gap: 15px;
         }
 
         .nav-buttons-left {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .btn-nav {
@@ -103,6 +106,7 @@
 
         .btn-nav:hover {
             box-shadow: inset 4px 4px 8px #b8bec9, inset -4px -4px 8px #ffffff;
+            color: var(--primary-blue);
         }
 
         .search-wrapper {
@@ -132,14 +136,13 @@
             text-shadow: 1px 1px 0px #fff;
             text-align: center;
             width: 100%;
-            scroll-margin-top: 150px; /* Ruang supaya tak tertutup oleh sticky nav */
+            scroll-margin-top: 150px; 
             font-size: 1.8rem;
             font-weight: 700;
         }
 
         .hidden-title { display: none; }
 
-        /* Menggantikan kelas .container kepada .flag-grid-container (elak konflik Bootstrap) */
         .flag-grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -200,7 +203,7 @@
 
         /* Responsif Mobile untuk Galeri */
         @media (max-width: 768px) {
-            .sticky-nav-wrapper { flex-direction: column; gap: 15px; }
+            .sticky-nav-wrapper { flex-direction: column; background: rgba(209, 217, 230, 0.95); padding: 15px; border-radius: 15px;}
             .search-wrapper { max-width: 100%; }
             .gallery-title { font-size: 1.3rem; }
         }
@@ -219,6 +222,7 @@
                 <div class="nav-buttons-left">
                     <button class="btn-nav" onclick="document.getElementById('title-asia').scrollIntoView({behavior: 'smooth'})">UNIT ASIA (A)</button>
                     <button class="btn-nav" onclick="document.getElementById('title-w').scrollIntoView({behavior: 'smooth'})">UNIT AFRIKA & EROPAH (W)</button>
+                    <button class="btn-nav" onclick="document.getElementById('title-m').scrollIntoView({behavior: 'smooth'})">UNIT AMERIKA & TIMUR TENGAH (M)</button>
                 </div>
                 
                 <div class="search-wrapper">
@@ -232,11 +236,13 @@
             <h1 id="title-w" class="gallery-title">Negara Unit Hubungan Dua Hala Dan Kerjasama Serantau Benua Afrika Dan Eropah Timur (W) <br> Cawangan Antarabangsa KKM</h1>
             <div class="flag-grid-container" id="container-unit-w"></div>
 
+            <h1 id="title-m" class="gallery-title">Negara Unit Hubungan Dua Hala Dan Kerjasama Serantau Benua Amerika Dan Timur Tengah (M) <br> Cawangan Antarabangsa KKM</h1>
+            <div class="flag-grid-container" id="container-unit-m"></div>
+
         </section>
     </div>
 
     <div id="footer-placeholder"></div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -247,7 +253,6 @@
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
                 
-                // --- KOD UNTUK MENU AKTIF AUTOMATIK ---
                 let currentPage = window.location.pathname.split("/").pop();
                 if (currentPage === "") currentPage = "portal.html";
                 currentPage = decodeURIComponent(currentPage);
@@ -256,7 +261,6 @@
                 navLinks.forEach(link => {
                     if (link.getAttribute('href') === currentPage) {
                         link.classList.add('active');
-                        // Jika link dalam dropdown, warnakan juga ibubapanya
                         let parentDropdown = link.closest('.dropdown');
                         if (parentDropdown) {
                             let dropdownToggle = parentDropdown.querySelector('.dropdown-toggle');
@@ -334,6 +338,29 @@
             { name: "WHO", code: "who" }, { name: "UNHCR", code: "unhcr" }, { name: "UNICEF", code: "unicef" }, { name: "United Nations (UN)", code: "un" }
         ];
 
+        // DATA UNTUK UNIT M (Baru Ditambah)
+        const unitMCountries = [
+            { name: "Afghanistan", code: "af" }, { name: "Antigua and Barbuda", code: "ag" }, { name: "Argentina", code: "ar" },
+            { name: "Bahamas", code: "bs" }, { name: "Bahrain", code: "bh" }, { name: "Barbados", code: "bb" },
+            { name: "Belize", code: "bz" }, { name: "Bolivia", code: "bo" }, { name: "Brazil", code: "br" },
+            { name: "Canada", code: "ca" }, { name: "Chile", code: "cl" }, { name: "Colombia", code: "co" },
+            { name: "Costa Rica", code: "cr" }, { name: "Cuba", code: "cu" }, { name: "Djibouti", code: "dj" },
+            { name: "Dominica", code: "dm" }, { name: "Dominican Republic", code: "do" }, { name: "Ecuador", code: "ec" },
+            { name: "Egypt", code: "eg" }, { name: "El Salvador", code: "sv" }, { name: "Grenada", code: "gd" },
+            { name: "Guatemala", code: "gt" }, { name: "Guyana", code: "gy" }, { name: "Haiti", code: "ht" },
+            { name: "Honduras", code: "hn" }, { name: "Iran", code: "ir" }, { name: "Iraq", code: "iq" },
+            { name: "Jamaica", code: "jm" }, { name: "Jordan", code: "jo" }, { name: "Kuwait", code: "kw" },
+            { name: "Lebanon", code: "lb" }, { name: "Libya", code: "ly" }, { name: "Mexico", code: "mx" },
+            { name: "Morocco", code: "ma" }, { name: "Nicaragua", code: "ni" }, { name: "Oman", code: "om" },
+            { name: "Pakistan", code: "pk" }, { name: "Palestine", code: "ps" }, { name: "Panama", code: "pa" },
+            { name: "Paraguay", code: "py" }, { name: "Peru", code: "pe" }, { name: "Qatar", code: "qa" },
+            { name: "Saint Kitts and Nevis", code: "kn" }, { name: "Saint Lucia", code: "lc" }, { name: "Saint Vincent and the Grenadines", code: "vc" },
+            { name: "Saudi Arabia", code: "sa" }, { name: "Somalia", code: "so" }, { name: "Sudan", code: "sd" },
+            { name: "Suriname", code: "sr" }, { name: "Syria", code: "sy" }, { name: "Trinidad and Tobago", code: "tt" },
+            { name: "Tunisia", code: "tn" }, { name: "United Arab Emirates", code: "ae" }, { name: "United States", code: "us" },
+            { name: "Uruguay", code: "uy" }, { name: "Venezuela", code: "ve" }, { name: "Yemen", code: "ye" }
+        ];
+
         function displayFlags(data, containerId) {
             const container = document.getElementById(containerId);
             data.forEach(country => {
@@ -350,9 +377,12 @@
             });
         }
 
+        // PANGGIL SEMUA 3 UNIT
         displayFlags(asiaCountries, 'container-asia');
         displayFlags(unitWCountries, 'container-unit-w');
+        displayFlags(unitMCountries, 'container-unit-m');
 
+        // FUNGSI CARIAN
         const searchInput = document.getElementById('search-input');
         searchInput.addEventListener('input', (e) => {
             const filter = e.target.value.toLowerCase();
@@ -367,8 +397,10 @@
                 }
             });
 
+            // SEMAK TAJUK SEMUA 3 UNIT
             checkTitleVisibility('container-asia', 'title-asia');
             checkTitleVisibility('container-unit-w', 'title-w');
+            checkTitleVisibility('container-unit-m', 'title-m');
         });
 
         function checkTitleVisibility(containerId, titleId) {
