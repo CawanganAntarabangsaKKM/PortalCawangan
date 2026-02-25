@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carta Organisasi - Cawangan Antarabangsa KKM</title>
-    <link rel="icon" type="image/png" href="jatanegara.png">
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Coat_of_arms_of_Malaysia.svg/128px-Coat_of_arms_of_Malaysia.svg.png">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -66,6 +66,11 @@
             text-align: center;
         }
 
+        /* Scrollbar Khas Supaya Pengguna Tahu Boleh Leret */
+        .org-chart-wrapper::-webkit-scrollbar { height: 10px; }
+        .org-chart-wrapper::-webkit-scrollbar-track { background: #dce7f3; border-radius: 10px; }
+        .org-chart-wrapper::-webkit-scrollbar-thumb { background: var(--secondary-blue); border-radius: 10px; }
+
         .section-title { position: relative; margin-bottom: 60px; text-align: center;}
         .gradient-text { background: linear-gradient(180deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; z-index: 2; position: relative; font-weight: 800;}
         .title-bg-text { position: absolute; top: -35px; left: 0; right: 0; font-size: 60px; font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(14, 25, 80, 0.05); letter-spacing: 5px; z-index: 0; text-transform: uppercase; }
@@ -98,11 +103,14 @@
         .org-grade { font-size: 10px; color: #777; background: #f0f0f0; padding: 2px 8px; border-radius: 10px; display: inline-block;}
 
         /* ============================================================
-           3. SUSUNAN BARU: TIANG TENGAH (SUB & TSUB)
+           3. TIANG TENGAH (SUB & TSUB)
         ============================================================ */
         .org-tree-container {
-            display: inline-block; /* Supaya container fit dengan isi, center di skrin */
+            display: inline-flex; 
+            flex-direction: column;
+            align-items: center;
             position: relative;
+            margin: 0 auto;
         }
 
         .management-level {
@@ -110,10 +118,9 @@
             justify-content: center;
         }
 
-        /* Pembalut untuk Bos (memastikan posisinya 100% di tengah) */
         .manager-wrapper {
             position: relative;
-            display: inline-block; /* Mengikut saiz kad Bos sahaja */
+            display: inline-block; 
         }
 
         /* Pembalut untuk PA ditarik keluar ke kanan */
@@ -122,7 +129,7 @@
             left: 100%;
             top: 50%;
             transform: translateY(-50%);
-            padding-left: 40px; /* Jarak garisan */
+            padding-left: 40px; 
             z-index: 10;
         }
 
@@ -138,7 +145,6 @@
             transform: translateY(-50%);
         }
 
-        /* Garisan menegak penyambung antara aras */
         .connector-gap {
             width: 2px;
             height: 40px;
@@ -147,10 +153,10 @@
         }
 
         /* ============================================================
-           4. SUSUNAN UNIT (BRANCH TREE BAWAH)
+           4. SUSUNAN 3 UNIT (BRANCH TREE BAWAH)
         ============================================================ */
         .tree ul {
-            padding-top: 0; /* Rapatkan ke garisan gap atas */
+            padding-top: 0; 
             position: relative; transition: all 0.5s;
             display: flex; justify-content: center; padding-left: 0; margin: 0;
         }
@@ -160,14 +166,12 @@
             position: relative; padding: 40px 15px 0 15px; 
         }
 
-        /* Garisan pengagih (melintang) untuk Unit */
         .tree li::before, .tree li::after {
             content: ''; position: absolute; top: 0; right: 50%;
             border-top: 2px solid #b3c0d1; width: 50%; height: 40px; z-index: 0;
         }
         .tree li::after { right: auto; left: 50%; border-left: 2px solid #b3c0d1; }
 
-        /* Kemasan Hujung Garisan Pokok */
         .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
         .tree li:last-child::before { border-right: 2px solid #b3c0d1; border-radius: 0 5px 0 0; }
         .tree li:first-child::after { border-radius: 5px 0 0 0; }
@@ -180,7 +184,6 @@
             padding-top: 30px; position: relative;
         }
 
-        /* Garisan dari Ketua Unit ke staf pertama */
         .vertical-stack::before {
             content: ''; position: absolute; top: 0; left: 50%;
             width: 2px; height: 30px; background: #b3c0d1; transform: translateX(-50%); z-index: 0;
@@ -188,48 +191,54 @@
 
         .vertical-stack .org-card { margin-bottom: 25px; position: relative; z-index: 2; margin-left: auto; margin-right: auto;}
 
-        /* Garisan dari staf ke staf bawahnya */
         .vertical-stack .org-card:not(:first-child)::before {
             content: ''; position: absolute; top: -25px; left: 50%;
             width: 2px; height: 25px; background: #b3c0d1; transform: translateX(-50%); z-index: 0;
         }
 
         /* ============================================================
-           6. RESPONSIVE MOBILE
+           6. RESPONSIVE MOBILE (MEMBETULKAN KESALAHAN HIERARKI)
         ============================================================ */
         @media (max-width: 992px) {
             .title-bg-text { font-size: 30px; top:-15px;}
             
-            /* Ubah PA jadi bertingkat di bawah Bos */
-            .manager-wrapper { display: flex; flex-direction: column; align-items: center; }
+            /* Trik: Sediakan ruang kosong di bawah kad bos */
+            .manager-wrapper { 
+                display: block; 
+                width: 100%;
+                padding-bottom: 120px; 
+                position: relative;
+            }
+            
+            /* GARISAN LURUS: Dari Bos Bypass PA terus ke bawah */
+            .manager-wrapper::after {
+                content: ''; position: absolute;
+                top: 100px; left: 50%; width: 2px; height: calc(100% - 100px); 
+                background: #b3c0d1; transform: translateX(-50%); z-index: 0;
+            }
+
+            /* Letak PA di tepi kanan seperti dahan */
             .pa-wrapper {
-                position: relative; left: 0; top: 0; transform: none; padding-left: 0; margin-top: 40px;
+                position: absolute; left: 50%; top: 110px; 
+                transform: translateX(30px); padding-left: 0; margin-top: 0;
             }
             
-            /* Garisan tegak untuk PA */
+            /* Saizkan semula kad PA supaya muat skrin telefon */
+            .pa-wrapper .org-card { width: 140px; padding: 10px; }
+            .pa-wrapper .card-icon { width: 35px; height: 35px; font-size: 14px; margin-bottom: 5px; }
+            .pa-wrapper .org-name { font-size: 11px; margin-bottom: 3px; }
+            .pa-wrapper .org-role { font-size: 9px; line-height: 1.1; margin-bottom: 3px; }
+            .pa-wrapper .org-grade { font-size: 8px; padding: 2px 5px; }
+
+            /* Garisan siku L-Shape dari garisan tengah ke Kad PA */
             .pa-wrapper::before {
-                width: 2px; height: 40px; left: 50%; top: -40px; transform: translateX(-50%);
+                width: 30px; height: 2px; left: -30px; top: 50%; transform: translateY(-50%);
             }
 
-            /* Pokok Unit diluruskan ke bawah */
-            .tree ul { flex-direction: column; align-items: center; }
-            .tree li { padding: 40px 0 0 0; border: none; }
-            .tree li::before, .tree li::after { display: none; } 
-            
-            /* Garisan tegak antara unit-unit di mobile */
-            .tree li:not(:first-child)::before {
-                content: ''; position: absolute; top: 0; left: 50%;
-                width: 2px; height: 40px; background: #b3c0d1; display: block !important; transform: translateX(-50%);
-            }
-
-            /* Reset vertical stack */
-            .vertical-stack { padding-top: 0; }
-            .vertical-stack::before { display: none; }
-            .vertical-stack .org-card { margin-top: 30px; margin-bottom: 0;}
-            .vertical-stack .org-card:first-child::before {
-                 content: ''; position: absolute; top: -30px; left: 50%;
-                 width: 2px; height: 30px; background: #b3c0d1; transform: translateX(-50%); z-index: 0;
-            }
+            /* KITA KEKALKAN 3 UNIT HORIZONTAL SUPAYA PENGGUNA BOLEH SWIPE */
+            .tree li { padding: 40px 10px 0 10px; } /* Jarak rapat sikit */
+            .org-card { width: 230px; } /* Kad kecil sedikit di mobile */
+            .org-card.support-staff { width: 200px; }
         }
     </style>
 </head>
@@ -245,6 +254,7 @@
                 <h2 class="fw-bold gradient-text">CARTA ORGANISASI</h2>
                 <div class="title-bg-text">STRUKTUR KORPORAT</div>
                 <p class="text-muted mt-2">Cawangan Antarabangsa, Bahagian Dasar dan Hubungan Antarabangsa KKM</p>
+                <small class="d-block d-lg-none text-info mt-2"><i class="fas fa-arrows-alt-h me-1"></i> Leret ke kiri/kanan untuk melihat Unit</small>
             </div>
 
             <div class="org-tree-container">
