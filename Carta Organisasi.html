@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Organisasi - Cawangan Antarabangsa KKM</title>
+    <link rel="icon" type="image/png" href="jatanegara.png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. CSS KESELURUHAN & HEADER/FOOTER
+        ============================================= */
+        :root {
+            --primary-blue: #0E1950; 
+            --secondary-blue: #4865a4;
+            --light-blue: #bed7f1;
+            --bg-color: #f8f9fa;
+        }
+
+        html, body {
+            margin: 0; padding: 0; width: 100%; overflow-x: hidden;
+            font-family: 'Poppins', sans-serif; background-color: var(--bg-color); scroll-behavior: smooth;
+        }
+
+        #header-placeholder, #footer-placeholder { width: 100%; display: block; }
+
+        .top-bar { background-color: var(--primary-blue); color: white; font-size: 13px; }
+        .top-bar a { color: white; text-decoration: none; }
+        .logo-section { border-bottom: 1px solid #eaeaea; }
+        .portal-branding { padding: 10px 0; }
+        .logo-img img { max-height: 85px; width: auto; }
+        .vertical-divider { height: 60px; width: 1px; background-color: #dee2e6; margin: 0 1.5rem; }
+        .portal-title { display: flex; flex-direction: column; justify-content: center; }
+        .portal-title .top-text { font-size: 14px; font-weight: 500; color: #666; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+        .portal-title .main-title { font-size: 24px; font-weight: 800; color: var(--primary-blue); line-height: 1.1; margin: 0; text-transform: uppercase; }
+
+        .main-nav { background: linear-gradient(180deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); padding: 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .main-nav .nav-link { color: white !important; font-weight: 600; padding: 15px 20px !important; transition: background 0.3s; }
+        .main-nav .nav-link:hover, .main-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); border-top: 3px solid var(--light-blue); }
+        .has-megamenu { position: static !important; }
+        .megamenu { position: absolute; left: 0; right: 0; width: 100%; border: none; border-radius: 0; margin-top: 0; border-top: 3px solid var(--secondary-blue); padding: 15px 0; }
+        .megamenu h6 { color: var(--primary-blue); font-weight: bold; border-bottom: 2px solid var(--light-blue); padding-bottom: 10px; margin-bottom: 15px; }
+        .megamenu ul li a { text-decoration: none; color: #333; display: block; padding: 5px 0; font-size: 15px; }
+        .megamenu ul li a:hover { color: var(--secondary-blue); padding-left: 5px; transition: all 0.2s; }
+        
+        @media (min-width: 992px) {
+            .main-nav .nav-item.dropdown .dropdown-menu { display: none !important; }
+            .main-nav .nav-item.dropdown:hover .dropdown-menu { display: block !important; visibility: visible; opacity: 1; margin-top: 0; animation: fadeDropdown 0.3s ease forwards; }
+        }
+        @keyframes fadeDropdown { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* ==========================================
+           2. CSS KHAS CARTA ORGANISASI & KAD
+        ============================================= */
+        .org-chart-wrapper {
+            padding: 50px 20px;
+            background-color: #eaf1f8; 
+            border-radius: 20px;
+            margin: -30px 20px 50px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow-x: auto; 
+            text-align: center;
+        }
+
+        .section-title { position: relative; margin-bottom: 60px; text-align: center;}
+        .gradient-text { background: linear-gradient(180deg, var(--primary-blue) 0%, var(--secondary-blue) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; z-index: 2; position: relative; font-weight: 800;}
+        .title-bg-text { position: absolute; top: -35px; left: 0; right: 0; font-size: 60px; font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(14, 25, 80, 0.05); letter-spacing: 5px; z-index: 0; text-transform: uppercase; }
+
+        .org-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 15px;
+            width: 260px;
+            text-align: center;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.08), -5px -5px 15px rgba(255,255,255,0.8);
+            border-top: 4px solid var(--primary-blue);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .org-card:hover { transform: translateY(-5px); box-shadow: 8px 8px 20px rgba(0,0,0,0.12), -8px -8px 20px rgba(255,255,255,0.9); }
+        
+        .org-card.unit-head { border-top-color: #ff9800; } 
+        .org-card.support-staff { border-top-color: #4caf50; width: 230px;} 
+        
+        .card-icon {
+            width: 50px; height: 50px; border-radius: 50%; background: #eaf1f8; color: var(--primary-blue);
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+            margin: 0 auto 10px auto; border: 2px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .org-name { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 5px; line-height: 1.3; }
+        .org-role { font-size: 11px; font-weight: 600; color: var(--secondary-blue); margin-bottom: 5px; }
+        .org-grade { font-size: 10px; color: #777; background: #f0f0f0; padding: 2px 8px; border-radius: 10px; display: inline-block;}
+
+        /* ============================================================
+           3. SUSUNAN BARU: TIANG TENGAH (SUB & TSUB)
+        ============================================================ */
+        .org-tree-container {
+            display: inline-block; /* Supaya container fit dengan isi, center di skrin */
+            position: relative;
+        }
+
+        .management-level {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Pembalut untuk Bos (memastikan posisinya 100% di tengah) */
+        .manager-wrapper {
+            position: relative;
+            display: inline-block; /* Mengikut saiz kad Bos sahaja */
+        }
+
+        /* Pembalut untuk PA ditarik keluar ke kanan */
+        .pa-wrapper {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding-left: 40px; /* Jarak garisan */
+            z-index: 10;
+        }
+
+        /* Garisan melintang dari Bos ke PA */
+        .pa-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 40px;
+            height: 2px;
+            background: #b3c0d1;
+            transform: translateY(-50%);
+        }
+
+        /* Garisan menegak penyambung antara aras */
+        .connector-gap {
+            width: 2px;
+            height: 40px;
+            background: #b3c0d1;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           4. SUSUNAN UNIT (BRANCH TREE BAWAH)
+        ============================================================ */
+        .tree ul {
+            padding-top: 0; /* Rapatkan ke garisan gap atas */
+            position: relative; transition: all 0.5s;
+            display: flex; justify-content: center; padding-left: 0; margin: 0;
+        }
+        
+        .tree li {
+            float: left; text-align: center; list-style-type: none;
+            position: relative; padding: 40px 15px 0 15px; 
+        }
+
+        /* Garisan pengagih (melintang) untuk Unit */
+        .tree li::before, .tree li::after {
+            content: ''; position: absolute; top: 0; right: 50%;
+            border-top: 2px solid #b3c0d1; width: 50%; height: 40px; z-index: 0;
+        }
+        .tree li::after { right: auto; left: 50%; border-left: 2px solid #b3c0d1; }
+
+        /* Kemasan Hujung Garisan Pokok */
+        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+        .tree li:last-child::before { border-right: 2px solid #b3c0d1; border-radius: 0 5px 0 0; }
+        .tree li:first-child::after { border-radius: 5px 0 0 0; }
+
+        /* ============================================================
+           5. SUSUNAN STAF DALAMAN UNIT (VERTICAL STACK)
+        ============================================================ */
+        .vertical-stack {
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 30px; position: relative;
+        }
+
+        /* Garisan dari Ketua Unit ke staf pertama */
+        .vertical-stack::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            width: 2px; height: 30px; background: #b3c0d1; transform: translateX(-50%); z-index: 0;
+        }
+
+        .vertical-stack .org-card { margin-bottom: 25px; position: relative; z-index: 2; margin-left: auto; margin-right: auto;}
+
+        /* Garisan dari staf ke staf bawahnya */
+        .vertical-stack .org-card:not(:first-child)::before {
+            content: ''; position: absolute; top: -25px; left: 50%;
+            width: 2px; height: 25px; background: #b3c0d1; transform: translateX(-50%); z-index: 0;
+        }
+
+        /* ============================================================
+           6. RESPONSIVE MOBILE
+        ============================================================ */
+        @media (max-width: 992px) {
+            .title-bg-text { font-size: 30px; top:-15px;}
+            
+            /* Ubah PA jadi bertingkat di bawah Bos */
+            .manager-wrapper { display: flex; flex-direction: column; align-items: center; }
+            .pa-wrapper {
+                position: relative; left: 0; top: 0; transform: none; padding-left: 0; margin-top: 40px;
+            }
+            
+            /* Garisan tegak untuk PA */
+            .pa-wrapper::before {
+                width: 2px; height: 40px; left: 50%; top: -40px; transform: translateX(-50%);
+            }
+
+            /* Pokok Unit diluruskan ke bawah */
+            .tree ul { flex-direction: column; align-items: center; }
+            .tree li { padding: 40px 0 0 0; border: none; }
+            .tree li::before, .tree li::after { display: none; } 
+            
+            /* Garisan tegak antara unit-unit di mobile */
+            .tree li:not(:first-child)::before {
+                content: ''; position: absolute; top: 0; left: 50%;
+                width: 2px; height: 40px; background: #b3c0d1; display: block !important; transform: translateX(-50%);
+            }
+
+            /* Reset vertical stack */
+            .vertical-stack { padding-top: 0; }
+            .vertical-stack::before { display: none; }
+            .vertical-stack .org-card { margin-top: 30px; margin-bottom: 0;}
+            .vertical-stack .org-card:first-child::before {
+                 content: ''; position: absolute; top: -30px; left: 50%;
+                 width: 2px; height: 30px; background: #b3c0d1; transform: translateX(-50%); z-index: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <div class="container-fluid px-md-5">
+        
+        <div class="org-chart-wrapper">
+            <div class="section-title">
+                <h2 class="fw-bold gradient-text">CARTA ORGANISASI</h2>
+                <div class="title-bg-text">STRUKTUR KORPORAT</div>
+                <p class="text-muted mt-2">Cawangan Antarabangsa, Bahagian Dasar dan Hubungan Antarabangsa KKM</p>
+            </div>
+
+            <div class="org-tree-container">
+                
+                <div class="management-level">
+                    <div class="manager-wrapper">
+                        <div class="org-card">
+                            <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                            <div class="org-name">Encik Muhamad Fade'li bin Abdul Shukor</div>
+                            <div class="org-role">Setiausaha Bahagian</div>
+                            <div class="org-grade">Gred JUSA C</div>
+                        </div>
+                        
+                        <div class="pa-wrapper">
+                            <div class="org-card support-staff">
+                                <div class="card-icon" style="background: #e8f5e9; color: #4caf50;"><i class="fas fa-user"></i></div>
+                                <div class="org-name">Puan Nurizwati binti Ab Majid</div>
+                                <div class="org-role">Setiausaha Pejabat</div>
+                                <div class="org-grade">Gred N6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connector-gap"></div>
+
+                <div class="management-level">
+                    <div class="manager-wrapper">
+                        <div class="org-card">
+                            <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                            <div class="org-name">Dr Ainul Nadziha binti Mohd Hanafiah</div>
+                            <div class="org-role">Timbalan Setiausaha Bahagian</div>
+                            <div class="org-grade">Gred UD14</div>
+                        </div>
+                        
+                        <div class="pa-wrapper">
+                            <div class="org-card support-staff">
+                                <div class="card-icon" style="background: #e8f5e9; color: #4caf50;"><i class="fas fa-user"></i></div>
+                                <div class="org-name">Puan Norpuspaliza binti Mustapa</div>
+                                <div class="org-role">Pembantu Tadbir (Perkeranian / Operasi)</div>
+                                <div class="org-grade">Gred N2(TBK1)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="connector-gap"></div>
+
+                <div class="tree">
+                    <ul>
+                        <li>
+                            <div class="org-card unit-head" style="background: #fff8e1;">
+                                <div class="org-role text-dark mb-2 border-bottom pb-1"><i class="fas fa-globe-asia me-1"></i> UNIT ASIA (A)</div>
+                                <div class="org-name mt-2">Encik Hanizam bin Darham</div>
+                                <div class="org-role">Ketua Penolong Setiausaha</div>
+                                <div class="org-grade">Gred M12</div>
+                            </div>
+                            
+                            <div class="vertical-stack">
+                                <div class="org-card">
+                                    <div class="org-name">Encik Thailis Bounya Anak Ngelayang</div>
+                                    <div class="org-role">Penolong Setiausaha Kanan</div>
+                                    <div class="org-grade">Gred M10</div>
+                                </div>
+                                <div class="org-card">
+                                    <div class="org-name">Cik Nurul Fadila binti Fadhilludin</div>
+                                    <div class="org-role">Penolong Setiausaha Kanan</div>
+                                    <div class="org-grade">Gred M10</div>
+                                </div>
+                                <div class="org-card support-staff">
+                                    <div class="org-name">Puan Hajartun Nurain binti Aliyes</div>
+                                    <div class="org-role">Pembantu Tadbir (Perkeranian/Operasi)</div>
+                                    <div class="org-grade">Gred N1</div>
+                                </div>
+                                <div class="org-card support-staff">
+                                    <div class="org-name">Encik Ahmad Shahidin Ashraf bin Mohd Nor</div>
+                                    <div class="org-role">Pembantu Tadbir (Perkeranian/Operasi)</div>
+                                    <div class="org-grade">Gred N1</div>
+                                </div>
+                                <div class="org-card support-staff">
+                                    <div class="org-name">Puan Azura binti Mohamad</div>
+                                    <div class="org-role">Pembantu Khidmat Am</div>
+                                    <div class="org-grade">Gred H1</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="org-card unit-head" style="background: #fff8e1;">
+                                <div class="org-role text-dark mb-2 border-bottom pb-1"><i class="fas fa-globe-europe me-1"></i> UNIT AFRIKA & EROPAH (W)</div>
+                                <div class="org-name mt-2">Encik Istaq Nadzril bin Abdul Kader</div>
+                                <div class="org-role">Ketua Penolong Setiausaha Kanan</div>
+                                <div class="org-grade">Gred M13</div>
+                            </div>
+                            
+                            <div class="vertical-stack">
+                                <div class="org-card">
+                                    <div class="org-name">Puan Nurul Hidayah Puteri binti Abdul Rahim</div>
+                                    <div class="org-role">Penolong Setiausaha Kanan</div>
+                                    <div class="org-grade">Gred M10</div>
+                                </div>
+                                <div class="org-card">
+                                    <div class="org-name">Cik Tulasii A/P Sivaraja</div>
+                                    <div class="org-role">Penolong Setiausaha Kanan</div>
+                                    <div class="org-grade">Gred M10</div>
+                                </div>
+                                <div class="org-card support-staff">
+                                    <div class="org-name">Puan Alizawati binti Daim</div>
+                                    <div class="org-role">Pembantu Tadbir (Perkeranian/Operasi)</div>
+                                    <div class="org-grade">Gred N2(TBK1)</div>
+                                </div>
+                                <div class="org-card support-staff">
+                                    <div class="org-name">Puan Siti Hasnira binti Mohd Yusuff</div>
+                                    <div class="org-role">Pembantu Tadbir (Perkeranian/Operasi)</div>
+                                    <div class="org-grade">Gred N1</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="org-card unit-head" style="background: #fff8e1;">
+                                <div class="org-role text-dark mb-2 border-bottom pb-1"><i class="fas fa-globe-americas me-1"></i> UNIT AMERIKA & TIMUR TENGAH (M)</div>
+                                <div class="org-name mt-2">Encik Paramjothy A/L Muthuvelu</div>
+                                <div class="org-role">Ketua Penolong Setiausaha</div>
+                                <div class="org-grade">Gred M13 (M)</div>
+                            </div>
+                            
+                            <div class="vertical-stack">
+                                <div class="org-card">
+                                    <div class="org-name">Encik Ahmad Ashraful Hadi bin Abdul Ghafor</div>
+                                    <div class="org-role">Penolong Setiausaha Kanan</div>
+                                    <div class="org-grade">Gred M10 (M)</div>
+                                </div>
+                                <div class="org-card support-staff">
+                                    <div class="org-name">Puan Zameera Akhma binti Abd Rahim</div>
+                                    <div class="org-role">Pembantu Tadbir (Perkeranian/Operasi)</div>
+                                    <div class="org-grade">Gred N1</div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                
+                let currentPage = window.location.pathname.split("/").pop();
+                currentPage = decodeURIComponent(currentPage);
+
+                let navLinks = document.querySelectorAll('.main-nav a');
+                navLinks.forEach(link => {
+                    if (link.innerText.trim() === 'Carta Organisasi' || link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                        link.style.color = "var(--secondary-blue)"; 
+                        
+                        let parentDropdown = link.closest('.dropdown');
+                        if (parentDropdown) {
+                            let dropdownToggle = parentDropdown.querySelector('.dropdown-toggle');
+                            if (dropdownToggle) dropdownToggle.classList.add('active');
+                        }
+                    }
+                });
+            });
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+    </script>
+</body>
+</html>
