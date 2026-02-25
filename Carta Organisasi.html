@@ -197,47 +197,55 @@
         }
 
         /* ============================================================
-           6. RESPONSIVE MOBILE (MEMBETULKAN KESALAHAN HIERARKI)
+           6. RESPONSIVE MOBILE (MEMBETULKAN KESALAHAN OVERLAP)
         ============================================================ */
         @media (max-width: 992px) {
             .title-bg-text { font-size: 30px; top:-15px;}
             
-            /* Trik: Sediakan ruang kosong di bawah kad bos */
+            /* Trik: Balut ikut saiz kad bos & sedia ruang di bawah */
             .manager-wrapper { 
-                display: block; 
-                width: 100%;
-                padding-bottom: 120px; 
+                display: inline-flex; 
+                flex-direction: column;
                 position: relative;
+                margin-bottom: 130px; /* Ruang menempatkan PA di bawah */
             }
             
-            /* GARISAN LURUS: Dari Bos Bypass PA terus ke bawah */
+            /* GARISAN LURUS: Dari bawah kad bos terus ke bawah */
             .manager-wrapper::after {
                 content: ''; position: absolute;
-                top: 100px; left: 50%; width: 2px; height: calc(100% - 100px); 
+                top: 100%; left: 50%; /* Mula TEPAT di garisan bawah kad bos */
+                width: 2px; height: 130px; /* Sambung tutup ruang margin */
                 background: #b3c0d1; transform: translateX(-50%); z-index: 0;
             }
 
-            /* Letak PA di tepi kanan seperti dahan */
+            /* Letak PA di bawah bos, tolak ke tepi kanan */
             .pa-wrapper {
-                position: absolute; left: 50%; top: 110px; 
-                transform: translateX(30px); padding-left: 0; margin-top: 0;
+                position: absolute; 
+                top: calc(100% + 25px); /* Magis: Sentiasa 25px di bawah bucu kad bos! */
+                left: 50%; 
+                transform: translateX(25px); /* Jarak tolak ke kanan dari tiang utama */
+                padding-left: 0; margin-top: 0;
             }
             
             /* Saizkan semula kad PA supaya muat skrin telefon */
-            .pa-wrapper .org-card { width: 140px; padding: 10px; }
+            .pa-wrapper .org-card { width: 150px; padding: 10px; }
             .pa-wrapper .card-icon { width: 35px; height: 35px; font-size: 14px; margin-bottom: 5px; }
-            .pa-wrapper .org-name { font-size: 11px; margin-bottom: 3px; }
+            .pa-wrapper .org-name { font-size: 11px; margin-bottom: 3px; line-height: 1.2; }
             .pa-wrapper .org-role { font-size: 9px; line-height: 1.1; margin-bottom: 3px; }
             .pa-wrapper .org-grade { font-size: 8px; padding: 2px 5px; }
 
-            /* Garisan siku L-Shape dari garisan tengah ke Kad PA */
+            /* Garisan siku L-Shape cantumkan PA dengan tiang tengah */
             .pa-wrapper::before {
-                width: 30px; height: 2px; left: -30px; top: 50%; transform: translateY(-50%);
+                width: 25px; /* Mesti sama dengan nilai translateX di atas */
+                height: 2px; 
+                left: -25px; 
+                top: 50%; 
+                transform: translateY(-50%);
             }
 
             /* KITA KEKALKAN 3 UNIT HORIZONTAL SUPAYA PENGGUNA BOLEH SWIPE */
-            .tree li { padding: 40px 10px 0 10px; } /* Jarak rapat sikit */
-            .org-card { width: 230px; } /* Kad kecil sedikit di mobile */
+            .tree li { padding: 40px 10px 0 10px; } 
+            .org-card { width: 230px; } 
             .org-card.support-staff { width: 200px; }
         }
     </style>
@@ -439,3 +447,4 @@
     </script>
 </body>
 </html>
+
